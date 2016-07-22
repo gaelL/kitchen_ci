@@ -1,0 +1,94 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  require_chef_omnibus: false # No need of chef
+
+  # This part specify the public key and private used to connect to containers (used by kitchen cli).
+  # But we will use this key later also to be able to connect from bastion to others containers.
+
+  # If not exist, kitchen will generate public and private key
+  # /!\ spec directory should be created before run kitchen ci.
+  # The spec directory is used because this directory will be copied inside the container by default.
+  private_key: spec/id_rsa
+  public_key: spec/id_rsa.pub
+
+  # The public key is automatically added in all containers authorized_keys.
+  # /!\ The key should not have \n at the and or you will have a ruby error during the create step
+
+provisioner:
+  # https://github.com/neillturner/kitchen-ansible/blob/a0ff5a49a3b4ab29bc4e61c01c9f8b6b1f2ef34f/lib/kitchen/provisioner/ansible_playbook.rb#L874
+  # group name in wich add localhost in the ansible inventory (I don't it)
+  hosts: test-kitchen
+  require_chef_for_busser: false # No need of chef
+  name: ansible_playbook
+  ansible_verbosity: 2
+  ansible_verbose: true
+  require_ansible_omnibus: true
+  # Imprtant part if you are using multiple container (bastion + nodes)
+  # If not specified kitchen-ansible will run locally the playbook.
+  ansible_connection: ssh
+  # Avoid kitchen-ansible to be blocked on ssh key verification
+  ansible_host_key_checking: false
+
+platforms:
+  # The important fact is that we define 2 images. 
+  #   * One with pre-installed ansible for bastion to run faster tests (no need overhead of ansible setup for each build.)
+  #   * One basic clean debian image
+
+  - name: debian-ansible
+    driver_config:
+      image: gaell/debian-ansible
+      platform: debian
+
+  - name: debian-base
+    driver_config:
+      image: debian
+      platform: debian
+
+
+# Basic test between 2 server
+# One is used to be the bastion (run ansible).
+# The other is used as an empty server on which we want to apply the role
+# To run this test we need to decompose `kitchen test` command.
+# Test = create + converge + verify + destroy
+# whereas converge will run ansible playbook. So we need to run converge only on the bastion
+# Example :
+# kitchen create
+# kitchen verify default
+# kitchen destroy
+
+# Tips to handle multiple test on the same host
+# /!\ all instance_name is prefixed by the role name because docker can't have multiple container with the same name running.
+# This name is later used in ansible inventory as a node address. Docker will add this name in /etc/hosts on the bastion node (links section).
+
+# Also kitchen will run each "suites" on each "platforms". We are not using kitchen like this so, we specify platforms to exclude on each suites.
+# To be able to have one image for the bastion and one image for others nodes.
+
+suites:
+   # Empty server on which we want to apply the ansible role
+  - name: case1
+    driver_config:
+      instance_name: ansible-case1
+    excludes:
+      - debian-ansible
+
+  # Bastion node to run ansible.
+
+  # The name is referring to the kitchen verify command and also the default.yml file name.
+  - name: default
+    excludes:
+      - debian-base
+    driver_config:
+      instance_name: default
+      # The bastion need to be declared at the end. Docker need to create first containers on which you are linked
+      links:
+        - "ansible-case1:ansible-case1"
+    provisioner:
+      # Specify the private key path inside the container (inside the container) that ansible will use to run
+      # See copy_private_key_cmd function in github to know more on this subject :
+      # https://github.com/neillturner/kitchen-ansible/blob/master/lib/kitchen/provisioner/ansible_playbook.rb
+
+      # This private key will be copied in kitchen home directory at the kitchen converge step. Juste before run ansible
+      private_key: spec/id_rsa
+

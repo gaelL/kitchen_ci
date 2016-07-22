@@ -1,0 +1,7 @@
+---
+
+- apt: name=php5-fpm state=present
+- lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='^listen =' line='listen = 9000'
+# Shared code between front and backend
+- copy: content="<?php echo 'PHP ok'; ?>" dest=/mnt/index.phpindex.php owner=www-data group=www-data
+- service: name=php5-fpm state=restarted

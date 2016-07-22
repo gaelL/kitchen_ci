@@ -1,0 +1,11 @@
+- hosts: frontend
+  remote_user: kitchen
+  sudo: yes
+  roles:
+  - frontend
+
+- hosts: backend
+  remote_user: kitchen
+  sudo: yes
+  roles:
+  - backend

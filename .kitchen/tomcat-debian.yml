@@ -1,0 +1,7 @@
+---
+ssh_key: spec/id_rsa
+image_id: aa7db0b33d38
+container_id: 5fe4ce798a43c5d3655e45e31a70982bd91bbf68d0292fa078eb835176ac7da7
+hostname: localhost
+port: 32775
+last_action: verify

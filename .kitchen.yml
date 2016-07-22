@@ -1,0 +1,136 @@
+---
+
+# Requirements :
+# gem install kitchen-docker kitchen-ansible
+
+# Lancer ansible a la main
+# kitchen login ansible
+# cd /tmp/kitchen && ansible-playbook -i kitchen-hosts site.yml  --private-key /home/kitchen/.ssh/id_rsa 
+
+# storage docker http://developerblog.redhat.com/2014/09/30/overview-storage-scalability-docker/
+# DOCKER_OPTS="-g /dev/shm --storage-driver=devicemapper"
+
+# Comment tester 2 usecase
+# Créer des suits avec prefix et hosts avec prefix. Run les ansible* (ansible-case1, ansible-case2) Eux override playbook: site-case1.yaml, site-case2.yaml)
+
+
+driver:
+  name: docker
+  private_key: spec/id_rsa
+  public_key: spec/id_rsa.pub
+  require_chef_omnibus: false
+  require_ruby_for_busser: true
+  #provision_command: echo 'bla driver' # work at create
+
+
+provisioner:
+  name: ansible_playbook
+  # Specify the role path in case you want test a playbook. In case of role, just let this directory
+  roles_path: roles
+  ansible_connection: ssh
+  ansible_host_key_checking: false
+  require_ansible_repo: true
+  ansible_verbose: true
+  ansible_verbosity: 4
+  ansible_version: latest
+  playbook: site.yml
+  # Specify the private key of the container put during converge
+  private_key: spec/id_rsa
+  require_chef_for_busser: false # No need of chef
+  ansible_inventory_file: kitchen-hosts
+  extra_vars:
+    a: b
+
+# roles_path    roles   ansible repo roles directory
+#group_vars_path group_vars  ansible repo group_vars directory
+#host_vars_path  host_vars   ansible repo hosts directory
+#library_plugins library ansible repo library plugins directory
+#callback_plugins    callback_plugins    ansible repo callback_plugins directory
+#filter_plugins  filter_plugins  ansible repo filter_plugins directory
+#lookup_plugins  lookup_plugins  ansible repo lookup_plugins directory
+#additional_copy_path        arbitrary array of files and directories to copy into test environment, relative to CWD. (eg, vars or included playbooks)
+#ansible_verbosity   1   Sets the verbosity flag appropriately (e.g.: 1 => '-v', 2 => '-vv', 3 => '-vvv" ...) Valid values are one of: 1, 2, 3, 4 OR :info, :warn, :debug, :trace.
+#ansible_check    false   Sets the --check flag when running Ansible
+#ansible_diff    false   Sets the --diff flag when running Ansible
+#ansible_vault_password_file     Path of Ansible Vault Password File <---------- tester ça
+
+platforms:
+  - name: debian
+
+verifier:
+  name: busser
+  plugin:
+  - Ansiblespec
+  ruby_bindir: '/usr/bin'
+
+suites:
+  - name: ansible
+    provisioner:
+      require_ansible_omnibus: false # No force ansible from repo
+      require_ansible_source: false # No force ansible from repo
+      require_ansible_repo: true
+      require_ruby_for_busser: true # see note [1] because of require_ansible_repo, don't need of manual ruby install
+    driver_config:
+      hostname: ansible.local
+      instance_name: ansible
+
+  - name: web
+    provisioner:
+      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge
+      #ansible_playbook_command: sudo apt-get install -y ruby
+      # If we disable all ansible require, the install_busser_prereqs will not be handled
+      require_ansible_omnibus: false # No need ansible on this container
+      require_ansible_source: false # No need ansible on this container
+      require_ansible_repo: false # No need ansible on this container
+      require_ruby_for_busser: true # see note [1]
+    driver:
+      # work at create
+      provision_command:
+        - sudo apt-get install -y ruby # see note [1]
+        - sudo apt-get install -y net-tools # For netstat used by serverspec
+      
+    driver_config:
+      #hostname: tomcat.local
+      instance_name: web
+
+  - name: back
+    provisioner:
+      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge
+      #ansible_playbook_command: sudo apt-get install -y ruby
+      # If we disable all ansible require, the install_busser_prereqs will not be handled
+      require_ansible_omnibus: false # No need ansible on this container
+      require_ansible_source: false # No need ansible on this container
+      require_ansible_repo: false # No need ansible on this container
+      require_ruby_for_busser: true # see note [1]
+    driver:
+      # work at create
+      provision_command:
+        - sudo apt-get install -y ruby # see note [1]
+        - sudo apt-get install -y net-tools # For netstat used by serverspec
+      
+    driver_config:
+      #hostname: tomcat.local
+      instance_name: back
+
+# Notes :
+# [1]
+# Install ruby manualy. Because even if you put require_ruby_for_busser true, kitchen-ansible will not install it if
+# you don't select require_ansible_omnibus or require_ansible_source or require_ansible_repo
+# see : https://github.com/neillturner/kitchen-ansible/blob/847d2517617f8e1109cfe6862bd6809773f58b20/lib/kitchen/provisioner/ansible_playbook.rb#L98
+
+
+# provision_command: curl -L https://www.opscode.com/chef/install.sh | bash
+
+# https://github.com/portertech/kitchen-docker
+# https://github.com/neillturner/kitchen-ansible
+
+#platforms:
+#  - name: nocm_centos-6.5
+#    driver_plugin: vagrant
+#    driver_config:
+#      box: nocm_centos-6.5
+#      box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box
+#      network:
+#      - ['forwarded_port', {guest: 8080, host: 8080}]
+#      - [ 'private_network', { ip: '192.168.33.11' } ]
+

@@ -1,0 +1,7 @@
+---
+
+- apt: name=nginx state=present
+- template: src=default.j2 dest=/etc/nginx/sites-available/default
+# Shared code between front and backend
+- copy: content="<?php echo 'PHP ok'; ?>" dest=/mnt/index.php owner=www-data group=www-data
+- service: name=nginx state=restarted
