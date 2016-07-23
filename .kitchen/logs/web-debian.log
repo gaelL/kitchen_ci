@@ -1,5 +1,0 @@
-I, [2016-02-10T15:37:01.861719 #11222]  INFO -- web-debian: -----> Destroying <web-debian>...
-I, [2016-02-10T15:37:01.911429 #11222]  INFO -- web-debian: UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
-I, [2016-02-10T15:37:02.280608 #11222]  INFO -- web-debian: 890d3e009ea5950674d5c8e01917e8024c4d1ff4643dd5612407658027afebde
-I, [2016-02-10T15:37:03.061350 #11222]  INFO -- web-debian: 890d3e009ea5950674d5c8e01917e8024c4d1ff4643dd5612407658027afebde
-I, [2016-02-10T15:37:03.074248 #11222]  INFO -- web-debian: Finished destroying <web-debian> (0m1.21s).

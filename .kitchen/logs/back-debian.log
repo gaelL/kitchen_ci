@@ -1,5 +1,0 @@
-I, [2016-02-10T15:37:03.075115 #11222]  INFO -- back-debian: -----> Destroying <back-debian>...
-I, [2016-02-10T15:37:03.131252 #11222]  INFO -- back-debian: UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
-I, [2016-02-10T15:37:03.500693 #11222]  INFO -- back-debian: 5fefd9ed8e189109ea2aa6b51d140c6935fec824a0004f6fa4a6872182a9e440
-I, [2016-02-10T15:37:04.188110 #11222]  INFO -- back-debian: 5fefd9ed8e189109ea2aa6b51d140c6935fec824a0004f6fa4a6872182a9e440
-I, [2016-02-10T15:37:04.200967 #11222]  INFO -- back-debian: Finished destroying <back-debian> (0m1.12s).

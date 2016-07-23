@@ -21,12 +21,16 @@ driver:
   require_chef_omnibus: false
   require_ruby_for_busser: true
   #provision_command: echo 'bla driver' # work at create
+  #run_command: '/usr/sbin/sshd -D -o UseDNS=no -o UsePAM=no -o PasswordAuthentication=yes -o MaxSessions=40 -o UsePrivilegeSeparation=no -o PidFile=/tmp/sshd.pid'
+  #max_ssh_sessions: 2
 
+#driver_config:
+#  max_ssh_sessions: 2
 
 provisioner:
   name: ansible_playbook
-  # Specify the role path in case you want test a playbook. In case of role, just let this directory
-  roles_path: roles
+  # Specify the role path in case you are testing a role. In case of playbook let it commented
+  #roles_path: .
   ansible_connection: ssh
   ansible_host_key_checking: false
   require_ansible_repo: true
@@ -37,9 +41,13 @@ provisioner:
   # Specify the private key of the container put during converge
   private_key: spec/id_rsa
   require_chef_for_busser: false # No need of chef
-  ansible_inventory_file: kitchen-hosts
+  ansible_inventory: kitchen-hosts
   extra_vars:
     a: b
+
+# Related to https://github.com/test-kitchen/test-kitchen/pull/1047
+transport:
+  max_ssh_sessions: 2
 
 # roles_path    roles   ansible repo roles directory
 #group_vars_path group_vars  ansible repo group_vars directory
@@ -55,7 +63,19 @@ provisioner:
 #ansible_vault_password_file     Path of Ansible Vault Password File <---------- tester ça
 
 platforms:
+  # The important fact is that we define 2 images. 
+  #   * One with pre-installed ansible for bastion to run faster tests (no need overhead of ansible setup for each build.)
+  #   * One basic clean debian image
+
+  - name: debian-kitchen
+    driver_config:
+      image: gaell/debian-kitchen
+      platform: debian
+
   - name: debian
+    driver_config:
+      image: debian
+      platform: debian
 
 verifier:
   name: busser
@@ -73,6 +93,8 @@ suites:
     driver_config:
       hostname: ansible.local
       instance_name: ansible
+    excludes:
+      - debian
 
   - name: web
     provisioner:
@@ -88,10 +110,11 @@ suites:
       provision_command:
         - sudo apt-get install -y ruby # see note [1]
         - sudo apt-get install -y net-tools # For netstat used by serverspec
-      
     driver_config:
       #hostname: tomcat.local
       instance_name: web
+    excludes:
+      - debian-kitchen
 
   - name: back
     provisioner:
@@ -107,10 +130,11 @@ suites:
       provision_command:
         - sudo apt-get install -y ruby # see note [1]
         - sudo apt-get install -y net-tools # For netstat used by serverspec
-      
     driver_config:
       #hostname: tomcat.local
       instance_name: back
+    excludes:
+      - debian-kitchen
 
 # Notes :
 # [1]

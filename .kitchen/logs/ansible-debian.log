@@ -1,5 +1,0 @@
-I, [2016-02-10T15:37:00.730062 #11222]  INFO -- ansible-debian: -----> Destroying <ansible-debian>...
-I, [2016-02-10T15:37:00.774769 #11222]  INFO -- ansible-debian: UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
-I, [2016-02-10T15:37:01.132681 #11222]  INFO -- ansible-debian: 89b0c382f897f95e7e586ea50625016cf980e65a316baf4480527ead8e77470e
-I, [2016-02-10T15:37:01.847145 #11222]  INFO -- ansible-debian: 89b0c382f897f95e7e586ea50625016cf980e65a316baf4480527ead8e77470e
-I, [2016-02-10T15:37:01.861000 #11222]  INFO -- ansible-debian: Finished destroying <ansible-debian> (0m1.13s).

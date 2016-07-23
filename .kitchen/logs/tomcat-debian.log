@@ -1,82 +1,0 @@
-I, [2016-01-31T21:46:42.500117 #11098]  INFO -- tomcat-debian: -----> Converging <tomcat-debian>...
-W, [2016-01-31T21:46:42.500497 #11098]  WARN -- tomcat-debian: Running legacy converge for 'Docker' Driver
-I, [2016-01-31T21:46:42.500704 #11098]  INFO -- tomcat-debian: Preparing files for transfer
-I, [2016-01-31T21:46:42.500773 #11098]  INFO -- tomcat-debian: Preparing playbook
-I, [2016-01-31T21:46:42.500943 #11098]  INFO -- tomcat-debian: Preparing inventory file
-I, [2016-01-31T21:46:42.501163 #11098]  INFO -- tomcat-debian: Preparing modules
-I, [2016-01-31T21:46:42.501306 #11098]  INFO -- tomcat-debian: nothing to do for modules
-I, [2016-01-31T21:46:42.501343 #11098]  INFO -- tomcat-debian: Preparing roles
-I, [2016-01-31T21:46:42.501742 #11098]  INFO -- tomcat-debian: Preparing ansible.cfg file
-I, [2016-01-31T21:46:42.501790 #11098]  INFO -- tomcat-debian: Empty ansible.cfg generated
-I, [2016-01-31T21:46:42.501854 #11098]  INFO -- tomcat-debian: Preparing group_vars
-I, [2016-01-31T21:46:42.501976 #11098]  INFO -- tomcat-debian: nothing to do for group_vars
-I, [2016-01-31T21:46:42.502010 #11098]  INFO -- tomcat-debian: Preparing additional_copy_path
-I, [2016-01-31T21:46:42.502065 #11098]  INFO -- tomcat-debian: Preparing host_vars
-I, [2016-01-31T21:46:42.502163 #11098]  INFO -- tomcat-debian: nothing to do for host_vars
-I, [2016-01-31T21:46:42.502233 #11098]  INFO -- tomcat-debian: Preparing spec
-I, [2016-01-31T21:46:42.502479 #11098]  INFO -- tomcat-debian: Preparing library plugins
-I, [2016-01-31T21:46:42.502602 #11098]  INFO -- tomcat-debian: nothing to do for library plugins
-I, [2016-01-31T21:46:42.502638 #11098]  INFO -- tomcat-debian: Preparing callback plugins
-I, [2016-01-31T21:46:42.502734 #11098]  INFO -- tomcat-debian: nothing to do for callback plugins
-I, [2016-01-31T21:46:42.502768 #11098]  INFO -- tomcat-debian: Preparing filter_plugins
-I, [2016-01-31T21:46:42.502865 #11098]  INFO -- tomcat-debian: nothing to do for filter_plugins
-I, [2016-01-31T21:46:42.502900 #11098]  INFO -- tomcat-debian: Preparing lookup_plugins
-I, [2016-01-31T21:46:42.503022 #11098]  INFO -- tomcat-debian: nothing to do for lookup_plugins
-I, [2016-01-31T21:46:42.503096 #11098]  INFO -- tomcat-debian: Finished Preparing files for transfer
-I, [2016-01-31T21:46:42.564106 #11098]  INFO -- tomcat-debian: Transferring files to <tomcat-debian>
-I, [2016-01-31T21:46:42.894614 #11098]  INFO -- tomcat-debian: NOOOP ANSIBLE
-I, [2016-01-31T21:46:42.897628 #11098]  INFO -- tomcat-debian: Finished converging <tomcat-debian> (0m0.40s).
-I, [2016-01-31T21:46:42.897758 #11098]  INFO -- tomcat-debian: -----> Setting up <tomcat-debian>...
-W, [2016-01-31T21:46:42.898456 #11098]  WARN -- tomcat-debian: Running legacy setup for 'Docker' Driver
-I, [2016-01-31T21:46:43.051166 #11098]  INFO -- tomcat-debian: -----> Installing Busser (busser)
-I, [2016-01-31T21:46:55.552693 #11098]  INFO -- tomcat-debian: Fetching: thor-0.19.0.gemFetching: thor-0.19.0.gem ( 17%)Fetching: thor-0.19.0.gem ( 35%)Fetching: thor-0.19.0.gem ( 53%)Fetching: thor-0.19.0.gem ( 71%)Fetching: thor-0.19.0.gem ( 89%)Fetching: thor-0.19.0.gem (100%)Fetching: thor-0.19.0.gem (100%)
-I, [2016-01-31T21:46:55.635306 #11098]  INFO -- tomcat-debian: Successfully installed thor-0.19.0
-I, [2016-01-31T21:46:57.317182 #11098]  INFO -- tomcat-debian: Fetching: busser-0.7.1.gemFetching: busser-0.7.1.gem ( 64%)Fetching: busser-0.7.1.gem (100%)Fetching: busser-0.7.1.gem (100%)
-I, [2016-01-31T21:46:57.361637 #11098]  INFO -- tomcat-debian: Successfully installed busser-0.7.1
-I, [2016-01-31T21:46:57.361936 #11098]  INFO -- tomcat-debian: 2 gems installed
-I, [2016-01-31T21:46:57.586700 #11098]  INFO -- tomcat-debian: -----> Setting up Busser
-I, [2016-01-31T21:46:57.586992 #11098]  INFO -- tomcat-debian: Creating BUSSER_ROOT in /tmp/verifier
-I, [2016-01-31T21:46:57.587237 #11098]  INFO -- tomcat-debian: Creating busser binstub
-I, [2016-01-31T21:46:57.593408 #11098]  INFO -- tomcat-debian: Installing Busser plugins: busser-bats busser-serverspec
-I, [2016-01-31T21:47:10.222418 #11098]  INFO -- tomcat-debian: Plugin bats installed (version 0.3.0)
-I, [2016-01-31T21:47:10.222511 #11098]  INFO -- tomcat-debian: -----> Running postinstall for bats plugin
-I, [2016-01-31T21:47:10.235622 #11098]  INFO -- tomcat-debian: Installed Bats to /tmp/verifier/vendor/bats/bin/bats
-I, [2016-01-31T21:47:21.317609 #11098]  INFO -- tomcat-debian: Plugin serverspec installed (version 0.5.9)
-I, [2016-01-31T21:47:21.321834 #11098]  INFO -- tomcat-debian: -----> Running postinstall for serverspec plugin
-I, [2016-01-31T21:47:27.878924 #11098]  INFO -- tomcat-debian: Finished setting up <tomcat-debian> (0m44.98s).
-I, [2016-01-31T21:47:27.879062 #11098]  INFO -- tomcat-debian: -----> Verifying <tomcat-debian>...
-W, [2016-01-31T21:47:27.879455 #11098]  WARN -- tomcat-debian: Running legacy verify for 'Docker' Driver
-I, [2016-01-31T21:47:27.879598 #11098]  INFO -- tomcat-debian: Preparing files for transfer
-I, [2016-01-31T21:47:28.052408 #11098]  INFO -- tomcat-debian: Suite path directory /tmp/verifier/suites does not exist, skipping.
-I, [2016-01-31T21:47:28.059925 #11098]  INFO -- tomcat-debian: Transferring files to <tomcat-debian>
-I, [2016-01-31T21:47:28.333249 #11098]  INFO -- tomcat-debian: -----> Running bats test suite
-I, [2016-01-31T21:47:28.366301 #11098]  INFO -- tomcat-debian: [1G   git binary is found in PATH[K[77G1/1[2G[1G ✓ git binary is found in PATH[K
-I, [2016-01-31T21:47:28.366376 #11098]  INFO -- tomcat-debian: [0m
-I, [2016-01-31T21:47:28.366395 #11098]  INFO -- tomcat-debian: 1 test, 0 failures
-I, [2016-01-31T21:47:28.366557 #11098]  INFO -- tomcat-debian: -----> Running serverspec test suite
-I, [2016-01-31T21:47:28.373329 #11098]  INFO -- tomcat-debian: -----> Installing Serverspec..
-I, [2016-01-31T21:47:56.561337 #11098]  INFO -- tomcat-debian: Fetching: rspec-support-3.4.1.gemFetching: rspec-support-3.4.1.gem ( 49%)Fetching: rspec-support-3.4.1.gem (100%)Fetching: rspec-support-3.4.1.gem (100%)
-I, [2016-01-31T21:48:00.201292 #11098]  INFO -- tomcat-debian: Fetching: rspec-core-3.4.2.gemFetching: rspec-core-3.4.2.gem ( 11%)Fetching: rspec-core-3.4.2.gem ( 23%)Fetching: rspec-core-3.4.2.gem ( 34%)Fetching: rspec-core-3.4.2.gem ( 45%)Fetching: rspec-core-3.4.2.gem ( 56%)Fetching: rspec-core-3.4.2.gem ( 68%)Fetching: rspec-core-3.4.2.gem ( 79%)Fetching: rspec-core-3.4.2.gem ( 90%)Fetching: rspec-core-3.4.2.gem (100%)Fetching: rspec-core-3.4.2.gem (100%)
-I, [2016-01-31T21:48:03.785305 #11098]  INFO -- tomcat-debian: Fetching: diff-lcs-1.2.5.gemFetching: diff-lcs-1.2.5.gem ( 32%)Fetching: diff-lcs-1.2.5.gem ( 65%)Fetching: diff-lcs-1.2.5.gem ( 99%)Fetching: diff-lcs-1.2.5.gem (100%)Fetching: diff-lcs-1.2.5.gem (100%)
-I, [2016-01-31T21:48:07.293280 #11098]  INFO -- tomcat-debian: Fetching: rspec-expectations-3.4.0.gemFetching: rspec-expectations-3.4.0.gem ( 21%)Fetching: rspec-expectations-3.4.0.gem ( 43%)Fetching: rspec-expectations-3.4.0.gem ( 65%)Fetching: rspec-expectations-3.4.0.gem ( 87%)Fetching: rspec-expectations-3.4.0.gem (100%)Fetching: rspec-expectations-3.4.0.gem (100%)
-I, [2016-01-31T21:48:10.765218 #11098]  INFO -- tomcat-debian: Fetching: rspec-mocks-3.4.1.gemFetching: rspec-mocks-3.4.1.gem ( 22%)Fetching: rspec-mocks-3.4.1.gem ( 43%)Fetching: rspec-mocks-3.4.1.gem ( 65%)Fetching: rspec-mocks-3.4.1.gem ( 87%)Fetching: rspec-mocks-3.4.1.gem (100%)Fetching: rspec-mocks-3.4.1.gem (100%)
-I, [2016-01-31T21:48:14.037151 #11098]  INFO -- tomcat-debian: Fetching: rspec-3.4.0.gemFetching: rspec-3.4.0.gem (100%)Fetching: rspec-3.4.0.gem (100%)
-I, [2016-01-31T21:48:17.361048 #11098]  INFO -- tomcat-debian: Fetching: rspec-its-1.2.0.gemFetching: rspec-its-1.2.0.gem (100%)Fetching: rspec-its-1.2.0.gem (100%)
-I, [2016-01-31T21:48:20.705563 #11098]  INFO -- tomcat-debian: Fetching: multi_json-1.11.2.gemFetching: multi_json-1.11.2.gem ( 63%)Fetching: multi_json-1.11.2.gem (100%)Fetching: multi_json-1.11.2.gem (100%)
-I, [2016-01-31T21:48:24.229233 #11098]  INFO -- tomcat-debian: Fetching: net-ssh-3.0.2.gemFetching: net-ssh-3.0.2.gem (  9%)Fetching: net-ssh-3.0.2.gem ( 18%)Fetching: net-ssh-3.0.2.gem ( 27%)Fetching: net-ssh-3.0.2.gem ( 36%)Fetching: net-ssh-3.0.2.gem ( 45%)Fetching: net-ssh-3.0.2.gem ( 54%)Fetching: net-ssh-3.0.2.gem ( 63%)Fetching: net-ssh-3.0.2.gem ( 72%)Fetching: net-ssh-3.0.2.gem ( 81%)Fetching: net-ssh-3.0.2.gem ( 90%)Fetching: net-ssh-3.0.2.gem ( 99%)Fetching: net-ssh-3.0.2.gem (100%)Fetching: net-ssh-3.0.2.gem (100%)
-I, [2016-01-31T21:48:27.649349 #11098]  INFO -- tomcat-debian: Fetching: net-scp-1.2.1.gemFetching: net-scp-1.2.1.gem ( 48%)Fetching: net-scp-1.2.1.gem ( 98%)Fetching: net-scp-1.2.1.gem (100%)Fetching: net-scp-1.2.1.gem (100%)
-I, [2016-01-31T21:48:30.977476 #11098]  INFO -- tomcat-debian: Fetching: net-telnet-0.1.1.gemFetching: net-telnet-0.1.1.gem ( 93%)Fetching: net-telnet-0.1.1.gem (100%)Fetching: net-telnet-0.1.1.gem (100%)
-I, [2016-01-31T21:48:34.197302 #11098]  INFO -- tomcat-debian: Fetching: sfl-2.2.gemFetching: sfl-2.2.gem (100%)Fetching: sfl-2.2.gem (100%)
-I, [2016-01-31T21:48:37.569657 #11098]  INFO -- tomcat-debian: Fetching: specinfra-2.50.3.gemFetching: specinfra-2.50.3.gem ( 22%)Fetching: specinfra-2.50.3.gem ( 43%)Fetching: specinfra-2.50.3.gem ( 65%)Fetching: specinfra-2.50.3.gem ( 87%)Fetching: specinfra-2.50.3.gem (100%)Fetching: specinfra-2.50.3.gem (100%)
-I, [2016-01-31T21:48:39.465087 #11098]  INFO -- tomcat-debian: Fetching: serverspec-2.29.1.gemFetching: serverspec-2.29.1.gem ( 43%)Fetching: serverspec-2.29.1.gem ( 86%)Fetching: serverspec-2.29.1.gem (100%)Fetching: serverspec-2.29.1.gem (100%)
-I, [2016-01-31T21:48:39.567857 #11098]  INFO -- tomcat-debian: -----> serverspec installed (version 2.29.1)
-I, [2016-01-31T21:48:39.661152 #11098]  INFO -- tomcat-debian: /usr/bin/ruby2.1 -I/tmp/verifier/suites/serverspec -I/tmp/verifier/gems/gems/rspec-support-3.4.1/lib:/tmp/verifier/gems/gems/rspec-core-3.4.2/lib /tmp/verifier/gems/bin/rspec --pattern /tmp/verifier/suites/serverspec/\*\*/\*_spec.rb --color --format documentation --default-path /tmp/verifier/suites/serverspec
-I, [2016-01-31T21:48:39.978089 #11098]  INFO -- tomcat-debian: 
-I, [2016-01-31T21:48:39.978307 #11098]  INFO -- tomcat-debian: Git Daemon
-I, [2016-01-31T21:48:40.037746 #11098]  INFO -- tomcat-debian: [32m  is listening on port 80[0m
-I, [2016-01-31T21:48:40.046441 #11098]  INFO -- tomcat-debian: [32m  has a running service of nginx[0m
-I, [2016-01-31T21:48:40.046660 #11098]  INFO -- tomcat-debian: 
-I, [2016-01-31T21:48:40.046685 #11098]  INFO -- tomcat-debian: Finished in 0.06876 seconds (files took 0.27557 seconds to load)
-I, [2016-01-31T21:48:40.046801 #11098]  INFO -- tomcat-debian: 
-I, [2016-01-31T21:48:40.046915 #11098]  INFO -- tomcat-debian: 
-I, [2016-01-31T21:48:40.078208 #11098]  INFO -- tomcat-debian: Finished verifying <tomcat-debian> (1m12.20s).
