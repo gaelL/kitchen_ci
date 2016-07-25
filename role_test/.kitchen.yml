@@ -1,0 +1,74 @@
+---
+
+driver:
+  name: docker
+  private_key: spec/id_rsa
+  public_key: spec/id_rsa.pub
+  require_chef_omnibus: false # No need of chef
+  require_ruby_for_busser: true
+
+provisioner:
+  name: ansible_playbook
+  # Specify the role path in case you are testing a role. In case of playbook let it commented
+  # Force the role_test directory but it's the default behavior, you can let this line commented
+  roles_path: ../role_test
+  ansible_connection: ssh
+  ansible_host_key_checking: false
+  ansible_verbose: true
+  ansible_verbosity: 2
+  ansible_version: latest
+  private_key: spec/id_rsa
+  require_chef_for_busser: false # No need of chef
+  # No need of inventory, we will dynammicaly define it in our test playbook.
+  #ansible_inventory: kitchen-hosts
+  hosts: test-kitchen
+
+transport:
+  max_ssh_sessions: 2
+
+platforms:
+  - name: debian-kitchen
+    driver_config:
+      image: gaell/debian-kitchen
+      platform: debian
+  - name: debian
+    driver_config:
+      image: debian
+      platform: debian
+
+verifier:
+  name: busser
+  plugin:
+  - Ansiblespec
+  ruby_bindir: '/usr/bin'
+
+suites:
+   # Empty server on which we want to apply the ansible role
+  - name: case1
+    driver_config:
+      instance_name: ansible-case1
+    provisioner:
+      ansible_playbook_command: echo 'NOOOP ANSIBLE'
+      require_ansible_omnibus: false
+      require_ansible_source: false
+      require_ansible_repo: false
+      require_ruby_for_busser: false
+    excludes:
+      - debian-kitchen
+
+  # Bastion node to run ansible.
+  # The name is referring to the kitchen verify command and also the default.yml file name.
+  - name: default
+    excludes:
+      - debian
+    driver_config:
+      instance_name: default
+      links:
+        - "ansible-case1:ansible-case1"
+    provisioner:
+      require_ansible_omnibus: false
+      require_ansible_source: false
+      require_ansible_repo: true
+      require_ruby_for_busser: false
+      private_key: spec/id_rsa
+

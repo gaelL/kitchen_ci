@@ -1,0 +1,12 @@
+# Create dynamic inventory to avoid to create a dedicated hosts file in the git directory
+- hosts: localhost
+  tasks:
+    - add_host: name=ansible-case1
+
+# Test latest ansible version
+- hosts: ansible-case1
+  remote_user: kitchen
+  sudo: yes
+  roles:
+    # Name of your directory containing the role. In case of github, it should be your github repository name
+    - role: role_test

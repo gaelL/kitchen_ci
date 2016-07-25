@@ -1,0 +1,7 @@
+
+
+- command: ansible --version
+  register: cmd
+
+- fail: msg="Error command ansible"
+  when: cmd|failed

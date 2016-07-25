@@ -18,14 +18,10 @@ driver:
   name: docker
   private_key: spec/id_rsa
   public_key: spec/id_rsa.pub
-  require_chef_omnibus: false
+  require_chef_omnibus: false # No need of chef
   require_ruby_for_busser: true
   #provision_command: echo 'bla driver' # work at create
   #run_command: '/usr/sbin/sshd -D -o UseDNS=no -o UsePAM=no -o PasswordAuthentication=yes -o MaxSessions=40 -o UsePrivilegeSeparation=no -o PidFile=/tmp/sshd.pid'
-  #max_ssh_sessions: 2
-
-#driver_config:
-#  max_ssh_sessions: 2
 
 provisioner:
   name: ansible_playbook
@@ -71,6 +67,10 @@ platforms:
     driver_config:
       image: gaell/debian-kitchen
       platform: debian
+  # Prepare the image
+  # Kitchen create from debian image and
+  # docker exec -it ansible apt-get install git python python-setuptools build-essential python-dev libffi-dev libssl-dev ruby ruby-dev apt-utils ansible python-selinux python-apt-common libxml2 python3-minimal dbus 
+  # docker commit  ansible  gaell/debian-kitchen
 
   - name: debian
     driver_config:
@@ -84,18 +84,6 @@ verifier:
   ruby_bindir: '/usr/bin'
 
 suites:
-  - name: ansible
-    provisioner:
-      require_ansible_omnibus: false # No force ansible from repo
-      require_ansible_source: false # No force ansible from repo
-      require_ansible_repo: true
-      require_ruby_for_busser: true # see note [1] because of require_ansible_repo, don't need of manual ruby install
-    driver_config:
-      hostname: ansible.local
-      instance_name: ansible
-    excludes:
-      - debian
-
   - name: web
     provisioner:
       ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge
@@ -110,6 +98,8 @@ suites:
       provision_command:
         - sudo apt-get install -y ruby # see note [1]
         - sudo apt-get install -y net-tools # For netstat used by serverspec
+      # Create a share volume to share source code of our app with the back container.
+      volume: /mnt
     driver_config:
       #hostname: tomcat.local
       instance_name: web
@@ -130,11 +120,34 @@ suites:
       provision_command:
         - sudo apt-get install -y ruby # see note [1]
         - sudo apt-get install -y net-tools # For netstat used by serverspec
+      # Get shared volume from the web container
+      volumes_from: web
     driver_config:
       #hostname: tomcat.local
       instance_name: back
     excludes:
       - debian-kitchen
+
+  - name: ansible
+    provisioner:
+      require_ansible_omnibus: false # No force ansible from repo
+      require_ansible_source: false # No force ansible from repo
+      require_ansible_repo: true
+      require_ruby_for_busser: true # see note [1] because of require_ansible_repo, don't need of manual ruby install
+      # Specify the private key path inside the container (inside the container) that ansible will use to run
+      # See copy_private_key_cmd function in github to know more on this subject :
+      # https://github.com/neillturner/kitchen-ansible/blob/master/lib/kitchen/provisioner/ansible_playbook.rb
+      # This private key will be copied in kitchen home directory at the kitchen converge step. Juste before run ansible
+      private_key: spec/id_rsa
+    driver_config:
+      hostname: ansible.local
+      instance_name: ansible
+      links:
+        - "web:web"
+        - "back:back"
+    excludes:
+      - debian
+      # The bastion need to be declared at the end. Docker need to create first containers on which you are linked
 
 # Notes :
 # [1]

@@ -12,6 +12,6 @@ server {
 
         location ~ \.php$ {
                include snippets/fastcgi-php.conf;
-               fastcgi_pass {{ groups['backend'][0] }}:9000;
+               fastcgi_pass {{ hostvars['back']['ansible_default_ipv4']['address'] }}:9000;
         }
 }

@@ -1,0 +1,5 @@
+---
+
+- apt: name=ansible state=present
+
+- include: validate.yml
