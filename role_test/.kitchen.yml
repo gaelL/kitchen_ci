@@ -59,12 +59,12 @@ suites:
       - debian-kitchen
 
   # Bastion node to run ansible.
-  # The name is referring to the kitchen verify command and also the default.yml file name.
-  - name: default
+  # The name is referring to the kitchen test subdirectory for the verify command and also the default.yml file name.
+  - name: ansible
     excludes:
       - debian
     driver_config:
-      instance_name: default
+      instance_name: ansible
       links:
         - "ansible-case1:ansible-case1"
     provisioner:

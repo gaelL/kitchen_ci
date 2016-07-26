@@ -77,7 +77,7 @@ verifier:
 suites:
   - name: web
     provisioner:
-      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge, disable ansible run just in case
+      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge, disable ansible
       # If we disable all ansible require, the install_busser_prereqs will not be handled
       require_ansible_omnibus: false # No need ansible on this container
       require_ansible_source: false # No need ansible on this container
@@ -91,14 +91,13 @@ suites:
       # Create a share volume to share source code of our app with the back container.
       volume: /mnt
     driver_config:
-      #hostname: tomcat.local
       instance_name: web
     excludes:
       - debian-kitchen
 
   - name: back
     provisioner:
-      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge, disable ansible run just in case
+      ansible_playbook_command: echo 'NOOOP ANSIBLE' # Work at converge, disable ansible
       # If we disable all ansible require, the install_busser_prereqs will not be handled
       require_ansible_omnibus: false # No need ansible on this container
       require_ansible_source: false # No need ansible on this container
@@ -112,7 +111,6 @@ suites:
       # Get shared volume from the web container
       volumes_from: web
     driver_config:
-      #hostname: tomcat.local
       instance_name: back
     excludes:
       - debian-kitchen
