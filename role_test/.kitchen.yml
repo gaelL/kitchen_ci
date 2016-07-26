@@ -12,6 +12,9 @@ provisioner:
   # Specify the role path in case you are testing a role. In case of playbook let it commented
   # Force the role_test directory but it's the default behavior, you can let this line commented
   roles_path: ../role_test
+  # group name in wich add localhost in the ansible inventory (I don't it)
+  # https://github.com/neillturner/kitchen-ansible/blob/a0ff5a49a3b4ab29bc4e61c01c9f8b6b1f2ef34f/lib/kitchen/provisioner/ansible_playbook.rb#L874
+  hosts: test-kitchen
   ansible_connection: ssh
   ansible_host_key_checking: false
   ansible_verbose: true
@@ -21,7 +24,6 @@ provisioner:
   require_chef_for_busser: false # No need of chef
   # No need of inventory, we will dynammicaly define it in our test playbook.
   #ansible_inventory: kitchen-hosts
-  hosts: test-kitchen
 
 transport:
   max_ssh_sessions: 2
